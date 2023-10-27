@@ -23,7 +23,7 @@ def extract_columns_with_missing_values(data):
 def count_lines_with_missing_data(data):
     count = 0
     column_missing_values = extract_columns_with_missing_values(data)
-    for i in range(len(data)):
+    for i in range(1, len(data)):
         row_values = [row for row in data[i]]
         for j in range(len(column_missing_values)):
             number_column = column_missing_values[j]
@@ -74,7 +74,7 @@ def delete_row_has_more_than_particular_num(data, num):
     particular_num = num * len(data[0]) / 100 
     column_missing_values = extract_columns_with_missing_values(data)
     
-    i = 0
+    i = 1
     while i < len(matrix):
         count = 0
         row_values = [row for row in matrix[i]]
@@ -89,12 +89,23 @@ def delete_row_has_more_than_particular_num(data, num):
             i += 1   
          
     return matrix
+        
+#Delete duplicate samples.
+def delete_duplicate(data):
+    matrix = data.copy()
+    i = 1
+    while i < len(matrix):
+        row_values_i = [row for row in matrix[i]]
+        j = i + 1
+        while j < len(matrix):
+            row_values_j = [row for row in matrix[j]]
+            if row_values_i == row_values_j:
+                del matrix[j]
+            else:
+                j += 1
+        i += 1
+    return matrix
 
-
-#Deleting columns containing more than a particular number of missing values 
-def delete_column(data, number):
-    for i in range (data[0].length):
-        valid_data = [row[i] for row in data if row[i] is not None or '']
 def main():
     file_path = 'house-prices.csv'
     data = read_csv(file_path)
@@ -112,5 +123,9 @@ def main():
     matrix = delete_row_has_more_than_particular_num(data, 10)
     print("Length of matrix after deleting rows have more than particular number with missing values:", len(matrix))
 
+    #Delete duplicate samples.
+    matrix =delete_duplicate(data)
+    print("Data after delete dupplicates samples:", len(matrix))  
+    
 if __name__ == "__main__":
     main()
