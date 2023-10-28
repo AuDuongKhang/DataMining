@@ -198,11 +198,11 @@ def main():
 
     # Deleting rows containing more than a particular number of missing values
     matrix = delete_row_has_more_than_particular_num(data, 10)
-    print("Length of matrix after deleting rows have more than particular number with missing values:", len(matrix) - 1)
+    print("Length of matrix after deleting rows have more than particular number with missing values:", len(matrix))
 
     # Delete duplicate samples.
     matrix = delete_duplicate(data)
-    print("Data after delete dupplicates samples:", len(matrix) - 1)
+    print("Data after delete dupplicates samples:", len(matrix))
 
     # Performing addition, subtraction, multiplication, and division between two numerical attributes.
     attr_1 = 0
